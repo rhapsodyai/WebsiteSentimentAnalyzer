@@ -8,6 +8,16 @@ var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+//added
+
+var NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
+var natural_language_understanding = new NaturalLanguageUnderstandingV1({
+  'username': '{username}',
+  'password': '{password}',
+  'version_date': '2017-02-27'
+});
+
+//added
 
 var emots;
 var url = '';

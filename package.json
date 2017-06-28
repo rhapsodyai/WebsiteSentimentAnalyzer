@@ -23,6 +23,6 @@
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "qs": "^6.3.0",
-    "watson-developer-cloud": "^2.15.5"
+    "watson-developer-cloud": "^2.32.1"
   }
 }
