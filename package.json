@@ -23,6 +23,16 @@
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "qs": "^6.3.0",
+    "request": "^2.81.0",
     "watson-developer-cloud": "^2.32.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhapsodyai/WebsiteSentimentAnalyzer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhapsodyai/WebsiteSentimentAnalyzer/issues"
+  },
+  "homepage": "https://github.com/rhapsodyai/WebsiteSentimentAnalyzer#readme"
 }

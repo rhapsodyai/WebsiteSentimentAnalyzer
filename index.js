@@ -43,7 +43,7 @@ app.get('/ajax', function(req, res) {
     //console.log(req)
     //console.log(emots)
     res.send(emots);
-    
+
 });
 
 app.listen(3000, function() {
@@ -61,5 +61,5 @@ function analyze() {
       console.log(emotions)
       emots = emotions;
     });
-    
+
 }

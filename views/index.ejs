@@ -3,7 +3,7 @@
 	<head>
         <!-- import jQuery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        
+
         <link rel="stylesheet" href="/index.css">
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -13,7 +13,7 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js">
         </script>
 
@@ -43,10 +43,10 @@
             </div>
             <div id="val" style="font-size:20;">
             </div>
-            
+
             <!-- <div class="btn" style="float:right; background-color:blue; color:white;">Click me</div>-->
         </div>
-        <div id="wrapper" style="text-align: center">    
+        <div id="wrapper" style="text-align: center">
             <div id="text-div" style="display: inline-block;">e.x. http://www.google.com
 
 
@@ -60,6 +60,85 @@
                 </div>
             </div>
         </div>
+
+
+				<div class="container">
+					<canvas id="myChart"></canvas>
+				</div>
+
+				<script>
+				let myChart = document.getElementById('myChart').getContext('2d');
+
+				//Global Options
+				Chart.defaults.global.defaultFontFamily = 'Lato';
+				Chart.defaults.global.defaultFontSize = 10;
+
+				let massPopChart = new Chart(myChart, {
+					type:'bar',
+					data:{
+						labels:['Anger','Disgust','Fear','Joy','Sadness'],
+						datasets:[{
+							label:'Site Sentiment Chart',
+							data:[0.11, 0.01, 0.06, 0.60, 0.25],
+							backgroundColor:[
+								//anger
+								'rgba(255, 99, 132, 0.2)',
+								//disgust
+								'rgba(75, 192, 192, 0.2)',
+								//fear
+								'rgba(153, 102, 255, 0.2)',
+								//joy
+								'rgba(255, 206, 86, 0.2)',
+								//sadness
+								'rgba(54, 162, 235, 0.2)'
+							],
+							borderWidth:1,
+							borderColor:'#777',
+							hoverBorderWidth:2,
+							hoverColor:[
+								//anger
+								'red',
+								//disgust
+								'purple',
+								//fear
+								'green',
+								//joy
+								'yellow',
+								//sadness
+								'blue'
+							]
+						}]
+					},
+					options:{
+						title:{
+							display:true,
+							text:'Sentiment analysis for website at URL',
+							fontSize:16
+						},
+						legend:{
+							display:true,
+							position:'top',
+							labels:{
+								fontColor:'#000'
+							}
+						},
+						layout:{
+							padding:{
+								left:50,
+								right:50,
+								bottom:0,
+								top:0
+							}
+						},
+						tooltips: {
+							enabled:true,
+
+						}
+					}
+				});
+
+				</script>
+
         <script>
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
@@ -115,7 +194,7 @@
                 function(){
                     $('#val').text(JSON.stringify(res));
                 });
-                
+
                 $.get('/ajax', function(res) {
                     $('#val').text(JSON.stringify(res));
                     });
