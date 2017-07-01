@@ -140,55 +140,8 @@
 				</script>
 
         <script>
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Anger", "Disgust", "Fear", "Joy", "Sadness"],
-                datasets: [{
-                    label: 'Sentiment Chart',
-                    data: [0.11, 0.01, 0.06, 0.60, 0.25],
-                    backgroundColor: [
-                        //anger
-                        'rgba(255, 99, 132, 0.2)',
-                        //disgust
-                        'rgba(75, 192, 192, 0.2)',
-                        //fear
-                        'rgba(153, 102, 255, 0.2)',
-                        //joy
-                        'rgba(255, 206, 86, 0.2)',
-                        //sadness
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        //anger
-                        'rgba(255,99,132,1)',
-                        //disgust
-                        'rgba(75, 192, 192, 1)',
-                        //fear
-                        'rgba(153, 102, 255, 1)',
-                        //joy
-                        'rgba(255, 206, 86, 1)',
-                        //sadness
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-        </script>
-        <script>
             $(function() {
-            $('#loadRequest').click(function() {
+            	$('#loadRequest').click(function() {
                 $.post('/',
                        {name:$('#url').val()},
                 function(){
@@ -197,8 +150,10 @@
 
                 $.get('/ajax', function(res) {
                     $('#val').text(JSON.stringify(res));
-                    });
+										var data = JSON.parse(res);
+										console.log(data.retrieved_url);
                 });
+              });
             });
         </script>
 	</body>
