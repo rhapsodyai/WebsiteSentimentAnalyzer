@@ -5,12 +5,10 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 3000;
 
 var app = express();
+app.use(express.static('images'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-//added
-var nluemots;
-var nluurl;
 var NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 var natural_language_understanding = new NaturalLanguageUnderstandingV1({
   'username': '',
@@ -19,7 +17,7 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 });
 
 var parameters = {
-  'url': 'https://www.google.com',
+  'url': 'https://www.twitter.com/kiyomizumia',
   'features': {
     'entities': {
       'emotion': true,
@@ -36,21 +34,18 @@ var parameters = {
 
 var emots;
 var url = '';
-// var AlchemyAPI = require('alchemy-api');
-// var alchemy = new AlchemyAPI('yourapikeyhere');
-
 
 app.get('/', function(req, res) {
     console.log(1);
-    //render index.ejs file
     console.log('get')
-    res.render('index.ejs', {val: emots});
 
+    res.render('index.ejs', {val: emots});
 });
 
 app.post('/', function(req, res) {
     console.log(2);
     console.log('post')
+
     url = req.body.name
     parameters.url = url;
     analyze();
@@ -59,11 +54,12 @@ app.post('/', function(req, res) {
 
 app.get('/ajax', function(req, res) {
     console.log(3);
-    console.log('ajax')
-    //console.log(req)
-    //console.log(emots)
-    res.send(emots);
+    console.log('ajax');
+    console.log(emots);
 
+
+
+    res.send(emots);
 });
 
 app.listen(3000, function() {
@@ -71,7 +67,6 @@ app.listen(3000, function() {
 })
 
 function analyze() {
-  console.log(4);
   natural_language_understanding.analyze(parameters, function(err, response) {
     if (err) {
       console.log('error:', err);

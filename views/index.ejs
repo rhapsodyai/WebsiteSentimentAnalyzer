@@ -57,104 +57,140 @@
 
 				<div class="bg"><p>Blah blah blah</p></div>
 
-				<script>
-				let myChart = document.getElementById('myChart').getContext('2d');
 
-				//Global Options
-				Chart.defaults.global.defaultFontFamily = 'Lato';
-				Chart.defaults.global.defaultFontSize = 10;
 
-				let massPopChart = new Chart(myChart, {
-					type:'bar',
-					data:{
-						labels:['Anger','Disgust','Fear','Joy','Sadness'],
-						datasets:[{
-							label:'Site Sentiment Chart',
-							data:[0.1, 0.1, 0.1, 0.1, 0.1],
-							backgroundColor:[
-								//anger
-								'rgba(255, 99, 132, 0.2)',
-								//disgust
-								'rgba(75, 192, 192, 0.2)',
-								//fear
-								'rgba(153, 102, 255, 0.2)',
-								//joy
-								'rgba(255, 206, 86, 0.2)',
-								//sadness
-								'rgba(54, 162, 235, 0.2)'
-							],
-							borderWidth:1,
-							borderColor:'#777',
-							hoverBorderWidth:2,
-							hoverColor:[
-								//anger
-								'red',
-								//disgust
-								'purple',
-								//fear
-								'green',
-								//joy
-								'yellow',
-								//sadness
-								'blue'
-							]
-						}]
-					},
-					options:{
-						title:{
-							display:true,
-							text:'Sentiment analysis for website at URL',
-							fontSize:16
-						},
-						legend:{
-							display:true,
-							position:'top',
-							labels:{
-								fontColor:'#000'
-							}
-						},
-						layout:{
-							padding:{
-								left:50,
-								right:50,
-								bottom:0,
-								top:0
-							}
-						},
-						tooltips: {
-							enabled:true,
+        <script>
+				var objectConstructor = {}.constructor;
+				var sadness;
+				var fear;
+				var anger;
+				var joy;
+				var disgust;
 
-						},
-						scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true,
-                        min: 0,
-                        max: 1
-                    }
-                }]
-            }
-					}
-				});
+        $(function() {
+        	$('#loadRequest').click(function() {
+            $.post('/',
+                   {name:$('#url').val()},
+            function(){
+                $('#val').text(JSON.stringify(res));
+            });
+
+            $.get('/ajax', function(res) {
+                $('#val').text(res);
+								var data = JSON.parse(res);
+								console.log(typeof res);
+								console.log(typeof JSON.stringify(res))
+								console.log(typeof JSON.parse(res))
+								console.log(typeof data)
+								console.log(typeof data["retrieved_url"]);
+								console.log(typeof data.retrieved_url)
+								console.log(data["retrieved_url"]);
+								console.log(data.retrieved_url)
+
+								console.log(data.keywords[0].emotion.sadness);
+								console.log(res);
+
+								sadness = data.keywords[0].emotion.sadness;
+								fear = data.keywords[0].emotion.fear;
+								anger = data.keywords[0].emotion.anger;
+								joy = data.keywords[0].emotion.joy;
+								disgust = data.keywords[0].emotion.disgust;
+
+								console.log(sadness);
+								console.log(fear);
+								console.log(anger);
+								console.log(joy);
+								console.log(disgust);
+
+								let myChart = document.getElementById('myChart').getContext('2d');
+
+								//Global Options
+								Chart.defaults.global.defaultFontFamily = 'Lato';
+								Chart.defaults.global.defaultFontSize = 10;
+
+								let massPopChart = new Chart(myChart, {
+									type:'bar',
+									data:{
+										labels:['Anger','Disgust','Fear','Joy','Sadness'],
+										datasets:[{
+											label:'Site Sentiment Chart',
+											data:[anger,disgust,fear,joy,sadness],//[0.1, 0.1, 0.1, 0.1, 0.1],
+											backgroundColor:[
+												//anger
+												'rgba(255, 99, 132, 0.2)',
+												//disgust
+												'rgba(75, 192, 192, 0.2)',
+												//fear
+												'rgba(153, 102, 255, 0.2)',
+												//joy
+												'rgba(255, 206, 86, 0.2)',
+												//sadness
+												'rgba(54, 162, 235, 0.2)'
+											],
+											borderWidth:1,
+											borderColor:'#777',
+											hoverBorderWidth:2,
+											hoverColor:[
+												//anger
+												'red',
+												//disgust
+												'purple',
+												//fear
+												'green',
+												//joy
+												'yellow',
+												//sadness
+												'blue'
+											]
+										}]
+									},
+									options:{
+										title:{
+											display:true,
+											text:'Sentiment analysis for website at URL',
+											fontSize:16
+										},
+										legend:{
+											display:true,
+											position:'top',
+											labels:{
+												fontColor:'#000'
+											}
+										},
+										layout:{
+											padding:{
+												left:50,
+												right:50,
+												bottom:0,
+												top:0
+											}
+										},
+										tooltips: {
+											enabled:true,
+
+										},
+										scales: {
+				                yAxes: [{
+				                    ticks: {
+				                        beginAtZero:true,
+				                        min: 0,
+				                        max: 1
+				                    }
+				                }]
+				            }
+									}
+								});
+            });
+          });
+        });
+
 
 				</script>
 
-        <script>
-            $(function() {
-            	$('#loadRequest').click(function() {
-                $.post('/',
-                       {name:$('#url').val()},
-                function(){
-                    //$('#val').text(JSON.stringify(res));
-                });
+				<script>
 
-                $.get('/ajax', function(res) {
-                    $('#val').text(JSON.stringify(res));
-										var data = JSON.parse(res);
-										console.log(data.retrieved_url);
-                });
-              });
-            });
-        </script>
-	</body>
+
+				</script>
+
+			</body>
 </html>
