@@ -61,11 +61,11 @@
 
         <script>
 				var objectConstructor = {}.constructor;
-				var sadness;
-				var fear;
-				var anger;
-				var joy;
-				var disgust;
+				var sadness = 0.0;
+				var fear = 0.0;
+				var anger = 0.0;
+				var joy = 0.0;
+				var disgust = 0.0;
 
         $(function() {
         	$('#loadRequest').click(function() {
@@ -78,23 +78,22 @@
             $.get('/ajax', function(res) {
                 $('#val').text(res);
 								var data = JSON.parse(res);
-								console.log(typeof res);
-								console.log(typeof JSON.stringify(res))
-								console.log(typeof JSON.parse(res))
-								console.log(typeof data)
-								console.log(typeof data["retrieved_url"]);
-								console.log(typeof data.retrieved_url)
-								console.log(data["retrieved_url"]);
-								console.log(data.retrieved_url)
 
-								console.log(data.keywords[0].emotion.sadness);
 								console.log(res);
 
-								sadness = data.keywords[0].emotion.sadness;
-								fear = data.keywords[0].emotion.fear;
-								anger = data.keywords[0].emotion.anger;
-								joy = data.keywords[0].emotion.joy;
-								disgust = data.keywords[0].emotion.disgust;
+								for (var i = 0; i < data.keywords.length; i++) {
+									sadness += data.keywords[i].emotion.sadness;
+									fear += data.keywords[i].emotion.fear;
+									anger += data.keywords[i].emotion.anger;
+									joy += data.keywords[i].emotion.joy;
+									disgust += data.keywords[i].emotion.disgust;
+								}
+
+								sadness /= data.keywords.length;
+								fear /= data.keywords.length;
+								anger /= data.keywords.length;
+								joy /= data.keywords.length;
+								disgust /= data.keywords.length;
 
 								console.log(sadness);
 								console.log(fear);

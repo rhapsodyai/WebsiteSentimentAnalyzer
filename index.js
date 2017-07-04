@@ -77,16 +77,4 @@ function analyze() {
       emots = emotions;
     }
   });
-
-    //emotion analysis
-    // alchemy.emotions(url, {}, function(err, response) {
-    //   if (err) throw err;
-    //   // See http://www.alchemyapi.com/api/html-api-1 for format of returned object
-    //   var emotions = response.docEmotions;
-    //
-    //   // Do something with data
-    //   console.log(emotions)
-    //   emots = emotions;
-    // });
-
 }
