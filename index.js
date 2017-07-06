@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 3000;
 
 var app = express();
+
 app.use(express.static('images'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -17,17 +18,17 @@ var natural_language_understanding = new NaturalLanguageUnderstandingV1({
 });
 
 var parameters = {
-  'url': 'https://www.twitter.com/kiyomizumia',
+  'url': '',
   'features': {
     'entities': {
       'emotion': true,
       'sentiment': true,
-      'limit': 2
+      'limit': 100
     },
     'keywords': {
       'emotion': true,
       'sentiment': true,
-      'limit': 2
+      'limit': 100
     }
   }
 }
@@ -36,29 +37,21 @@ var emots;
 var url = '';
 
 app.get('/', function(req, res) {
-    console.log(1);
     console.log('get')
-
     res.render('index.ejs', {val: emots});
 });
 
 app.post('/', function(req, res) {
-    console.log(2);
-    console.log('post')
-
-    url = req.body.name
+    console.log('post');
+    url = req.body.name;
     parameters.url = url;
     analyze();
     console.log(req.body.name);
 });
 
 app.get('/ajax', function(req, res) {
-    console.log(3);
     console.log('ajax');
     console.log(emots);
-
-
-
     res.send(emots);
 });
 

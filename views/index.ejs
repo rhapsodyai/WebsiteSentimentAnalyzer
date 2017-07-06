@@ -55,12 +55,7 @@
 					<canvas id="myChart"></canvas>
 				</div>
 
-				<div class="bg"><p>Blah blah blah</p></div>
-
-
-
         <script>
-				var objectConstructor = {}.constructor;
 				var sadness = 0.0;
 				var fear = 0.0;
 				var anger = 0.0;
@@ -68,6 +63,8 @@
 				var disgust = 0.0;
 
         $(function() {
+
+
         	$('#loadRequest').click(function() {
             $.post('/',
                    {name:$('#url').val()},
@@ -76,6 +73,9 @@
             });
 
             $.get('/ajax', function(res) {
+
+							  resetEmotions();
+
                 $('#val').text(res);
 								var data = JSON.parse(res);
 
@@ -113,7 +113,7 @@
 										labels:['Anger','Disgust','Fear','Joy','Sadness'],
 										datasets:[{
 											label:'Site Sentiment Chart',
-											data:[anger,disgust,fear,joy,sadness],//[0.1, 0.1, 0.1, 0.1, 0.1],
+											data:[anger,disgust,fear,joy,sadness],
 											backgroundColor:[
 												//anger
 												'rgba(255, 99, 132, 0.2)',
@@ -183,13 +183,14 @@
           });
         });
 
+				function resetEmotions() {
+					sadness = 0.0;
+					fear = 0.0;
+					anger = 0.0;
+					joy = 0.0;
+					disgust = 0.0;
+				}
 
 				</script>
-
-				<script>
-
-
-				</script>
-
 			</body>
 </html>
